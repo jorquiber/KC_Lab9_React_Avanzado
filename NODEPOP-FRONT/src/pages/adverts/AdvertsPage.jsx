@@ -2,6 +2,7 @@ import { getAdverts } from "./service";
 import { useEffect, useState } from "react";
 import Advert from "./components/Advert";
 import Layout from "../../components/layout/Layout";
+import { Link } from "react-router-dom";
 
 const EmptyList = () => (
   <div>
@@ -33,7 +34,9 @@ function AdvertsPage() {
           <ul>
             {adverts.map(({ id, ...advert }) => (
               <li key={id}>
-                <Advert {...advert} />
+                <Link to={`/adverts/${id}`}>
+                  <Advert {...advert} />
+                </Link>
               </li>
             ))}
           </ul>

@@ -35,7 +35,7 @@
 }
 
 .header-nav .active {
-  color: rgba(29, 161, 242, 0.1);
+  font-weight: bold;
 }
 
 .header-button {

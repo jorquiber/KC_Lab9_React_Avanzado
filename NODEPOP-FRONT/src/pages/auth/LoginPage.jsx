@@ -5,8 +5,11 @@ import { useAuth } from "./context";
 import FormField from "../../components/shared/FormField";
 import "./LoginPage.css";
 import storage from "../../utils/storage";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function LoginPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { onLogin } = useAuth();
   const [formValues, setFormValues] = useState({
     email: "",
@@ -34,6 +37,9 @@ export default function LoginPage() {
     if (!isChecked) {
       storage.clear();
     }
+
+    const to = location.state?.from || "/";
+    navigate(to, { replace: true });
   };
 
   const { email, password } = formValues;

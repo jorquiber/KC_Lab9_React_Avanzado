@@ -2,10 +2,10 @@ import { useState } from "react";
 import "./App.css";
 import AdvertsPage from "./pages/adverts/AdvertsPage";
 import LoginPage from "./pages/auth/LoginPage";
-import { useAuth } from "./pages/auth/context";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import AdvertPage from "./pages/adverts/AdvertPage";
 import NewAdvertPage from "./pages/adverts/NewAdvertPage";
+import RequireAuth from "./pages/auth/components/RequireAuth";
 
 function App() {
   return (
@@ -15,7 +15,9 @@ function App() {
         path="/adverts"
         element={
           <div className="container">
-            <Outlet />
+            <RequireAuth>
+              <Outlet />
+            </RequireAuth>
           </div>
         }
       >
