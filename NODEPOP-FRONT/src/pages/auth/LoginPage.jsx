@@ -4,6 +4,7 @@ import { login } from "./service";
 import { useAuth } from "./context";
 import FormField from "../../components/shared/FormField";
 import "./LoginPage.css";
+import storage from "../../utils/storage";
 
 export default function LoginPage() {
   const { onLogin } = useAuth();
@@ -12,11 +13,17 @@ export default function LoginPage() {
     password: "",
   });
 
-  const handleChange = (event) => {
+  const [isChecked, setIsChecked] = useState(true);
+
+  const handleInputChange = (event) => {
     setFormValues((currentFormValues) => ({
       ...currentFormValues,
       [event.target.name]: event.target.value,
     }));
+  };
+
+  const handleCheckboxChange = (event) => {
+    setIsChecked((currentIsChecked) => !currentIsChecked);
   };
 
   const handleSubmit = async (event) => {
@@ -24,6 +31,9 @@ export default function LoginPage() {
     await login(formValues);
 
     onLogin();
+    if (!isChecked) {
+      storage.clear();
+    }
   };
 
   const { email, password } = formValues;
@@ -38,7 +48,7 @@ export default function LoginPage() {
           label="email"
           className="loginForm-field"
           value={email}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
         <FormField
           type="password"
@@ -46,7 +56,7 @@ export default function LoginPage() {
           label="password"
           className="loginForm-field"
           value={password}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
         <Button
           type="submit"
@@ -56,6 +66,14 @@ export default function LoginPage() {
         >
           Log in
         </Button>
+        <FormField
+          type="checkbox"
+          name="remember"
+          label="Remember password if you restart the browser"
+          className="loginForm-field"
+          checked={isChecked}
+          onChange={handleCheckboxChange}
+        />
       </form>
     </div>
   );

@@ -6,7 +6,7 @@ function Advert({ name, sale, price, tags }) {
     <div className="advert">
       <h2 className="name">{name}</h2>
       <div className="price-wrapper">
-        <span className="sale">{sale ? "On sale" : "On purchase"}</span>
+        <span className="sale">{sale ? "On sale:" : "On purchase:"}</span>
         <span className="price">{`${price} €`}</span>
       </div>
       <div className="tags">
