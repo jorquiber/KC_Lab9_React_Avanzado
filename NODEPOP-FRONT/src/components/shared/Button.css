@@ -1,0 +1,32 @@
+/* buttonStyles.css */
+.button {
+    cursor: pointer;
+    border-radius: 9999px;
+    border-style: solid;
+    border-width: 1px;
+    display: inline-flex;
+    align-items: center;
+    font-weight: bold;
+    min-height: 36px;
+    justify-content: center;
+    min-width: 72px;
+    outline-style: none;
+    transition: background-color 0.2s;
+  }
+  
+  .button-primary {
+    background-color: #000;
+    border-color: #000;
+    color: #FFF;
+  }
+  
+  .button-secondary {
+    background-color: #FFF;
+    border-color: #000;
+    color: #000;
+  }
+  
+  .button:hover {
+    background-color: rgb(0, 239, 168);
+  }
+  

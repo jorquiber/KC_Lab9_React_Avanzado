@@ -1,6 +1,7 @@
 import { getAdverts } from "./service";
 import { useEffect, useState } from "react";
 import Advert from "./components/Advert";
+import Layout from "../../components/layout/Layout";
 
 const EmptyList = () => (
   <div>
@@ -26,19 +27,21 @@ function AdvertsPage() {
   }, []);
 
   return (
-    <div>
-      {adverts.length ? (
-        <ul>
-          {adverts.map(({ id, ...advert }) => (
-            <li key={id}>
-              <Advert {...advert} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <EmptyList />
-      )}
-    </div>
+    <Layout title="Adverts">
+      <div>
+        {adverts.length ? (
+          <ul>
+            {adverts.map(({ id, ...advert }) => (
+              <li key={id}>
+                <Advert {...advert} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <EmptyList />
+        )}
+      </div>
+    </Layout>
   );
 }
 

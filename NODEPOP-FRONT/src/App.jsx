@@ -1,17 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import AdvertsPage from './pages/adverts/AdvertsPage'
+import { useState } from "react";
+import "./App.css";
+import AdvertsPage from "./pages/adverts/AdvertsPage";
+import LoginPage from "./pages/auth/LoginPage";
 
-function App() {
-  
+function App({ isDefaultLogged }) {
+  const [isLogged, setIsLogged] = useState(isDefaultLogged);
+
+  const handleLogin = () => setIsLogged(true);
+  const handleLogout = () => setIsLogged(false);
 
   return (
-    <>
-      <AdvertsPage></AdvertsPage>
-    </>
-  )
+    <div>
+      {isLogged ? (
+        <AdvertsPage onLogout={handleLogout} />
+      ) : (
+        <LoginPage onLogin={handleLogin} />
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
