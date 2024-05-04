@@ -1,23 +1,12 @@
 import { useState } from "react";
 import "./App.css";
 import AdvertsPage from "./pages/adverts/AdvertsPage";
-import LoginPage from "./pages/auth/LoginPage";
+import { LoginPage } from "./pages/auth/LoginPage";
+import { useAuth } from "./pages/auth/context";
 
-function App({ isDefaultLogged }) {
-  const [isLogged, setIsLogged] = useState(isDefaultLogged);
-
-  const handleLogin = () => setIsLogged(true);
-  const handleLogout = () => setIsLogged(false);
-
-  return (
-    <div>
-      {isLogged ? (
-        <AdvertsPage onLogout={handleLogout} />
-      ) : (
-        <LoginPage onLogin={handleLogin} />
-      )}
-    </div>
-  );
+function App() {
+  const { isLogged } = useAuth();
+  return <div>{isLogged ? <AdvertsPage /> : <LoginPage />}</div>;
 }
 
 export default App;

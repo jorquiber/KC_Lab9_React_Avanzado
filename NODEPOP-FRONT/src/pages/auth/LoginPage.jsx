@@ -1,8 +1,12 @@
 import { useState } from "react";
 import Button from "../../components/shared/Button";
 import { login } from "./service";
+import { useAuth } from "./context";
+import FormField from "../../components/shared/FormField";
+import "./LoginPage.css";
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage() {
+  const { onLogin } = useAuth();
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
@@ -17,27 +21,40 @@ export default function LoginPage({ onLogin }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const response = await login(formValues);
+    await login(formValues);
 
     onLogin();
   };
 
-  const { email: email, password } = formValues;
+  const { email, password } = formValues;
   const buttonDisabled = !email || !password;
   return (
-    <div>
-      <h1>Log in to Nodepop</h1>
+    <div className="loginPage">
+      <h1 className="loginPage-title">Log in to Nodepop</h1>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="email" value={email} onChange={handleChange} />
-        <input
+        <FormField
+          type="text"
+          name="email"
+          label="email"
+          className="loginForm-field"
+          value={email}
+          onChange={handleChange}
+        />
+        <FormField
           type="password"
           name="password"
+          label="password"
+          className="loginForm-field"
           value={password}
           onChange={handleChange}
         />
-        <Button type="submit" $variant="primary" disabled={buttonDisabled}>
-          Login
+        <Button
+          type="submit"
+          $variant="primary"
+          disabled={buttonDisabled}
+          className="loginForm-submit"
+        >
+          Log in
         </Button>
       </form>
     </div>
