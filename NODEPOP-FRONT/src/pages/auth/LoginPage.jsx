@@ -15,6 +15,7 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
+  const [error, setError] = useState(null);
 
   const [isChecked, setIsChecked] = useState(true);
 
@@ -31,16 +32,20 @@ export default function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await login(formValues);
-
-    onLogin();
-    if (!isChecked) {
-      storage.clear();
+    try {
+      await login(formValues);
+      onLogin();
+      if (!isChecked) {
+        storage.clear();
+      }
+      const to = location.state?.from || "/";
+      navigate(to, { replace: true });
+    } catch (error) {
+      setError(error);
     }
-
-    const to = location.state?.from || "/";
-    navigate(to, { replace: true });
   };
+
+  const resetError = () => setError(null);
 
   const { email, password } = formValues;
   const buttonDisabled = !email || !password;
@@ -81,6 +86,11 @@ export default function LoginPage() {
           onChange={handleCheckboxChange}
         />
       </form>
+      {error && (
+        <div className="loginPage-error" onClick={resetError}>
+          {error.message}
+        </div>
+      )}
     </div>
   );
 }
