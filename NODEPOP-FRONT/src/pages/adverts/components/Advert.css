@@ -17,7 +17,7 @@
   
   .advert .price-wrapper {
     display: flex;
-    justify-content: rileftght;
+    justify-content: left;
     gap: 5px;
   }
   

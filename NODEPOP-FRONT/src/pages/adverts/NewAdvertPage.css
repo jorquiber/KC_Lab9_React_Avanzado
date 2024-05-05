@@ -1,0 +1,18 @@
+.tags-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+div .newAdvertPage-footer {
+    max-width: 100%;
+}
+
+.newAdvertPage-submit {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.tagFormField {
+    margin: 0 auto;
+
+}
