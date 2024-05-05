@@ -3,11 +3,14 @@ import { useEffect, useState } from "react";
 import Advert from "./components/Advert";
 import Layout from "../../components/layout/Layout";
 import { Link } from "react-router-dom";
+import Button from "../../components/shared/Button";
 
 const EmptyList = () => (
   <div>
-    <p>N oadverts on the web</p>
-    <button>Create advert</button>
+    <p>No adverts on the web</p>
+    <Button variant="secondary" to="/adverts/new">
+      Create advert
+    </Button>
   </div>
 );
 

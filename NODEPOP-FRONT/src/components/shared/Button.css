@@ -1,4 +1,3 @@
-/* buttonStyles.css */
 .button {
     cursor: pointer;
     border-radius: 9999px;
@@ -33,5 +32,6 @@
   .button:disabled{
     background-color: #ccc;
     border-color: #ccc;
-    color: #fff;}
+    color: #fff;
+  }
   

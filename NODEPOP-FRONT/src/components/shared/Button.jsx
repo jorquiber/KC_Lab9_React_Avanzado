@@ -1,12 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./Button.css";
+import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 const Button = ({
   variant = "primary",
   disabled = false,
   onClick,
   children,
+  className,
+  to,
 }) => {
   const handleClick = () => {
     if (!disabled && onClick) {
@@ -14,9 +18,23 @@ const Button = ({
     }
   };
 
+  if (to) {
+    return (
+      <Link to={to}>
+        <button
+          className={clsx("button", `button-${variant}`, className)}
+          onClick={handleClick}
+          disabled={disabled}
+        >
+          {children}
+        </button>
+      </Link>
+    );
+  }
+
   return (
     <button
-      className={`button button-${variant}`}
+      className={clsx("button", `button-${variant}`, className)}
       onClick={handleClick}
       disabled={disabled}
     >
@@ -30,6 +48,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
+  to: PropTypes.string,
 };
 
 export default Button;

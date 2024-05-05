@@ -16,7 +16,7 @@ function AuthButton({ className }) {
       Logout
     </Button>
   ) : (
-    <Button $variant="primary" className={className} as={Link} to="/login">
+    <Button variant="secondary" className={className} to="/login">
       Login
     </Button>
   );
