@@ -5,6 +5,7 @@ import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import AdvertPage from "./pages/adverts/AdvertPage";
 import NewAdvertPage from "./pages/adverts/NewAdvertPage";
 import RequireAuth from "./pages/auth/components/RequireAuth";
+import NotFoundPage from "./pages/NotFound/NotFoundPage";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route path="new" element={<NewAdvertPage />} />
       </Route>
       <Route path="/" element={<Navigate to="/adverts" />} />
-      <Route path="/404" element={<div>404 | Not found</div>} />
+      <Route path="/404" element={<NotFoundPage />} />
       <Route path="*" element={<Navigate to="/404" />} />
     </Routes>
   );
