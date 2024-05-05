@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
 import Layout from "../../components/layout/Layout";
 import FormField from "../../components/shared/FormField";
 import { getAdvertTags, createAdvert } from "./service";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/shared/Button";
 import "./NewAdvertPage.css";
@@ -84,7 +85,7 @@ function NewAdvertPageForm({ tags }) {
     }
   };
 
-  const { productName, isSale, price, photo, productTags } = formValues;
+  const { productName, isSale, price, productTags } = formValues;
   const buttonDisabled =
     !productName ||
     !price ||
@@ -142,7 +143,7 @@ function NewAdvertPageForm({ tags }) {
           variant="primary"
           disabled={buttonDisabled}
         >
-          Let's go!
+          Let&apos;s go!
         </Button>
       </div>
     </form>
@@ -169,5 +170,9 @@ function NewAdvertPage() {
     </Layout>
   );
 }
+
+NewAdvertPageForm.propTypes = {
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default NewAdvertPage;

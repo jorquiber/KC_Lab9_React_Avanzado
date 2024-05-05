@@ -11,18 +11,18 @@ function AdvertPage() {
   const [advert, setAdvert] = useState(null);
 
   useEffect(() => {
-    try {
-      async function getAdvertsFromService() {
+    async function getAdvertsFromService() {
+      try {
         const advert = await getAdvert(params.id);
         setAdvert(advert);
-      }
-      getAdvertsFromService();
-    } catch (error) {
-      if (error.status === 404) {
-        navigate("/404");
+      } catch (error) {
+        if (error.status === 404) {
+          navigate("/404");
+        }
       }
     }
-  }, [params.id]);
+    getAdvertsFromService();
+  }, [params.id, navigate]);
 
   return (
     <Layout title="Advert detail">

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import clsx from "clsx";
 import WallapopLogo from "../../assets/wallapop.svg";
 import AuthButton from "../../pages/auth/components/AuthButton";
@@ -23,3 +24,7 @@ export default function Header({ className }) {
     </header>
   );
 }
+
+Header.propTypes = {
+  className: PropTypes.string,
+};

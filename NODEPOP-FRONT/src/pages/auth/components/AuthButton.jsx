@@ -1,7 +1,7 @@
 import Button from "../../../components/shared/Button";
 import { useAuth } from "../context";
 import { logout } from "../service";
-import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 function AuthButton({ className }) {
   const { isLogged, onLogout } = useAuth();
@@ -21,5 +21,9 @@ function AuthButton({ className }) {
     </Button>
   );
 }
+
+AuthButton.propTypes = {
+  className: PropTypes.string,
+};
 
 export default AuthButton;

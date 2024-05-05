@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import clsx from "clsx";
 import defaultPhoto from "../../assets/product-default-image.png";
 
@@ -12,5 +12,9 @@ const Photo = ({ className, ...props }) => (
     {...props}
   />
 );
+
+Photo.propTypes = {
+  className: PropTypes.string,
+};
 
 export default Photo;

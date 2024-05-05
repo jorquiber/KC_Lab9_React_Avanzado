@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import "./Advert.css";
 
 function Advert({ name, sale, price, tags }) {
@@ -19,5 +19,12 @@ function Advert({ name, sale, price, tags }) {
     </div>
   );
 }
+
+Advert.propTypes = {
+  name: PropTypes.string.isRequired,
+  sale: PropTypes.bool.isRequired,
+  price: PropTypes.number.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default Advert;

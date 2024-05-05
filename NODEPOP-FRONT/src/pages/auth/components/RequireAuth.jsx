@@ -1,5 +1,6 @@
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context';
+import PropTypes from "prop-types";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context";
 
 function RequireAuth({ children }) {
   const location = useLocation();
@@ -11,5 +12,9 @@ function RequireAuth({ children }) {
     <Navigate to="/login" state={{ from: location.pathname }} replace />
   );
 }
+
+RequireAuth.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default RequireAuth;

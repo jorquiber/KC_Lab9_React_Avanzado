@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import "./Advert.css";
 import Photo from "../../../components/shared/Photo";
 
@@ -27,5 +27,13 @@ function AdvertDetail({ name, sale, price, tags, photo }) {
     </div>
   );
 }
+
+AdvertDetail.propTypes = {
+  name: PropTypes.string.isRequired,
+  sale: PropTypes.bool.isRequired,
+  price: PropTypes.number.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  photo: PropTypes.string,
+};
 
 export default AdvertDetail;

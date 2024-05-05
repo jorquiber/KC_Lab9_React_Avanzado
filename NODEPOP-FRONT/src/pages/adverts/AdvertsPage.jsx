@@ -57,7 +57,7 @@ function AdvertsPage() {
   return (
     <Layout title="Adverts">
       <div>
-        <h4>Filtros</h4>
+        <h4>Filters</h4>
         <div>
           <FormField
             type="text"

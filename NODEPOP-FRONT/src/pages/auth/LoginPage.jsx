@@ -26,7 +26,7 @@ export default function LoginPage() {
     }));
   };
 
-  const handleCheckboxChange = (event) => {
+  const handleCheckboxChange = () => {
     setIsChecked((currentIsChecked) => !currentIsChecked);
   };
 

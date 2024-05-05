@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import "./Button.css";
 import clsx from "clsx";
@@ -49,6 +48,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
   to: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default Button;
