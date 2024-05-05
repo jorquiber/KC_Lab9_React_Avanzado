@@ -1,4 +1,4 @@
-import { getAdverts } from "./service";
+import { getAdverts, getAdvertTags } from "./service";
 import { useEffect, useState } from "react";
 import Advert from "./components/Advert";
 import Layout from "../../components/layout/Layout";
@@ -18,40 +18,74 @@ const EmptyList = () => (
 function AdvertsPage() {
   const [adverts, setAdverts] = useState([]);
   const [nameFilter, setNameFilter] = useState("");
+  const [tags, setTags] = useState([]);
+  const [tagsFilter, setTagsFilter] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const advertsData = await getAdverts();
         setAdverts(advertsData);
+        const advertsTags = await getAdvertTags();
+        setTags(advertsTags);
       } catch (error) {
-        console.error("Error fetching adverts:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, []);
 
-  const handleChange = (event) => {
+  const handleNameFilterChange = (event) => {
     setNameFilter(event.target.value);
   };
 
-  const filteredAdverts = adverts.filter(({ name }) =>
-    name.toLowerCase().startsWith(nameFilter.toLowerCase())
+  const handleTagFilterChange = (event, tag) => {
+    if (event.target.checked) {
+      setTagsFilter([...tagsFilter, tag]);
+    } else {
+      setTagsFilter(tagsFilter.filter((t) => t !== tag));
+    }
+  };
+
+  const filteredAdverts = adverts.filter(
+    ({ name, tags }) =>
+      name.toLowerCase().startsWith(nameFilter.toLowerCase()) &&
+      (tagsFilter.length === 0 || tagsFilter.every((tag) => tags.includes(tag)))
   );
 
   return (
     <Layout title="Adverts">
       <div>
         <h4>Filtros</h4>
-        <FormField
-          type="text"
-          name="filter"
-          label="Filter by name"
-          value={nameFilter}
-          onChange={handleChange}
-        />
+        <div>
+          <FormField
+            type="text"
+            name="filter"
+            label="Filter by name"
+            value={nameFilter}
+            onChange={handleNameFilterChange}
+          />
+        </div>
+        <div>
+          <p>Filter by tags</p>
+          {tags.length > 0 ? (
+            <div className="tags-wrapper">
+              {tags.map((tag) => (
+                <FormField
+                  key={tag}
+                  type="checkbox"
+                  name={tag}
+                  label={tag}
+                  className="tagFormField"
+                  onChange={(e) => handleTagFilterChange(e, tag)}
+                />
+              ))}
+            </div>
+          ) : null}
+        </div>
       </div>
+
       <div>
         {adverts.length > 0 ? (
           filteredAdverts.length > 0 ? (
