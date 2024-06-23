@@ -7,5 +7,6 @@ module.exports = {
   testEnvironment: 'jsdom',
   moduleNameMapper: {
     '\\.css$': '<rootDir>/__mocks__/styleMock.js', // Ruta al archivo mock para CSS
-  }
+  },
+  setupFilesAfterEnv: ['<rootDir>/setupTests.js'], // Archivo de configuración de tests
 };

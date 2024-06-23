@@ -68,7 +68,7 @@ export default function LoginPage() {
         <FormField
           type="checkbox"
           name="remember"
-          label="Remember password if you restart the browser"
+          label="Remember me if you restart the browser"
           className="loginForm-field"
           checked={isChecked}
           onChange={handleCheckboxChange}

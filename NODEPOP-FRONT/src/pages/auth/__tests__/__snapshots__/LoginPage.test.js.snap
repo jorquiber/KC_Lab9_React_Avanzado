@@ -60,7 +60,7 @@ exports[`LoginPage snapshot 1`] = `
           class="formField-label"
         >
           <span>
-            Remember password if you restart the browser
+            Remember me if you restart the browser
           </span>
           <input
             autocomplete="off"
