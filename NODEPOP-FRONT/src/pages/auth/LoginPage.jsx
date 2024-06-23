@@ -36,7 +36,7 @@ export default function LoginPage() {
       await login(formValues);
       onLogin();
       if (!isChecked) {
-        storage.clear();
+        storage.remove("auth");
       }
       const to = location.state?.from || "/";
       navigate(to, { replace: true });
