@@ -1,7 +1,7 @@
 import Layout from "../../components/layout/Layout";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAdvert } from "./service";
+import { getAdvert, deleteAdvert } from "./service";
 import AdvertDetail from "./components/AdvertDetail";
 import { useNavigate } from "react-router-dom";
 
@@ -24,9 +24,20 @@ function AdvertPage() {
     getAdvertsFromService();
   }, [params.id, navigate]);
 
+  const handleDelete = async () => {
+    try {
+      await deleteAdvert(params.id);
+      navigate("/");
+    } catch (error) {
+      if (error.status === 404) {
+        navigate("/404");
+      }
+    }
+  };
+
   return (
     <Layout title="Advert detail">
-      {advert ? <AdvertDetail {...advert} /> : null}
+      {advert ? <AdvertDetail onDelete={handleDelete} {...advert} /> : null}
     </Layout>
   );
 }

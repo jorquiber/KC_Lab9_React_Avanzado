@@ -1,10 +1,14 @@
 import PropTypes from "prop-types";
 import "./Advert.css";
 import Photo from "../../../components/shared/Photo";
+import ConfirmationButton from "../../../components/shared/ConfirmationButton";
 
-function AdvertDetail({ name, sale, price, tags, photo }) {
+function AdvertDetail({ onDelete, name, sale, price, tags, photo }) {
   return (
     <div className="advert">
+      <ConfirmationButton confirmation="Are you sure?" onConfirm={onDelete}>
+        Delete
+      </ConfirmationButton>
       <h2 className="name">{name}</h2>
       <div className="price-wrapper">
         <span className="sale">{sale ? "On sale:" : "On purchase:"}</span>
