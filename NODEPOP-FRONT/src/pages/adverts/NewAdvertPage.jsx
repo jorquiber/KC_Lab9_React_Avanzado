@@ -1,15 +1,19 @@
 import PropTypes from "prop-types";
 import Layout from "../../components/layout/Layout";
 import FormField from "../../components/shared/FormField";
-import { getAdvertTags, createAdvert } from "./service";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/shared/Button";
 import "./NewAdvertPage.css";
 import FormData from "form-data";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { getTags } from "../../store/selectors";
+import { loadTags, createAdvert } from "../../store/actions";
 
 function NewAdvertPageForm({ tags }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [formValues, setFormValues] = useState({
     productName: "",
@@ -61,28 +65,21 @@ function NewAdvertPageForm({ tags }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append("name", formValues.productName);
-      formData.append("sale", formValues.isSale);
-      formData.append("price", formValues.price);
-      formData.append(
-        "tags",
-        Object.keys(formValues.productTags)
-          .filter((tag) => formValues.productTags[tag])
-          .join(",")
-      );
-      if (formValues.photo) {
-        formData.append("photo", formValues.photo);
-      }
-
-      const createdAdvert = await createAdvert(formData);
-      navigate(`/adverts/${createdAdvert.id}`);
-    } catch (error) {
-      if (error.status === 401) {
-        navigate("/login");
-      }
+    const formData = new FormData();
+    formData.append("name", formValues.productName);
+    formData.append("sale", formValues.isSale);
+    formData.append("price", formValues.price);
+    formData.append(
+      "tags",
+      Object.keys(formValues.productTags)
+        .filter((tag) => formValues.productTags[tag])
+        .join(",")
+    );
+    if (formValues.photo) {
+      formData.append("photo", formValues.photo);
     }
+
+    dispatch(createAdvert(formData));
   };
 
   const { productName, isSale, price, productTags } = formValues;
@@ -151,19 +148,12 @@ function NewAdvertPageForm({ tags }) {
 }
 
 function NewAdvertPage() {
-  const [tags, setTags] = useState([]);
+  const dispatch = useDispatch();
+  const tags = useSelector(getTags);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const advertsTags = await getAdvertTags();
-        setTags(advertsTags);
-      } catch (error) {
-        console.error("Error fetching tags:", error);
-      }
-    };
-    fetchData();
-  }, []);
+    dispatch(loadTags());
+  }, [dispatch]);
   return (
     <Layout title="Create a new advert">
       {tags.length > 0 ? <NewAdvertPageForm tags={tags} /> : null}

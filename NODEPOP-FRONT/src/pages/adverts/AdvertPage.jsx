@@ -1,38 +1,22 @@
 import Layout from "../../components/layout/Layout";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAdvert, deleteAdvert } from "./service";
 import AdvertDetail from "./components/AdvertDetail";
-import { useNavigate } from "react-router-dom";
+import { getAdvert } from "../../store/selectors";
+import { loadAdvert, deleteAdvert } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 function AdvertPage() {
   const params = useParams();
-  const navigate = useNavigate();
-  const [advert, setAdvert] = useState(null);
+  const advert = useSelector(getAdvert(params.id));
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    async function getAdvertsFromService() {
-      try {
-        const advert = await getAdvert(params.id);
-        setAdvert(advert);
-      } catch (error) {
-        if (error.status === 404) {
-          navigate("/404");
-        }
-      }
-    }
-    getAdvertsFromService();
-  }, [params.id, navigate]);
+    dispatch(loadAdvert(params.id));
+  }, [params.id, dispatch]);
 
   const handleDelete = async () => {
-    try {
-      await deleteAdvert(params.id);
-      navigate("/");
-    } catch (error) {
-      if (error.status === 404) {
-        navigate("/404");
-      }
-    }
+    dispatch(deleteAdvert(params.id));
   };
 
   return (

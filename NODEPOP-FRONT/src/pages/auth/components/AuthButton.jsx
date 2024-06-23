@@ -1,14 +1,17 @@
 import Button from "../../../components/shared/Button";
-import { useAuth } from "../context";
 import { logout } from "../service";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { getIsLogged } from "../../../store/selectors";
+import { authLogout } from "../../../store/actions";
 
 function AuthButton({ className }) {
-  const { isLogged, onLogout } = useAuth();
+  const isLogged = useSelector(getIsLogged);
+  const dispatch = useDispatch();
 
   const handleLogoutClick = async () => {
     await logout();
-    onLogout();
+    dispatch(authLogout());
   };
 
   return isLogged ? (

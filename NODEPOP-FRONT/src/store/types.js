@@ -16,6 +16,10 @@ export const ADVERTS_CREATED_PENDING = 'adverts/created/pending';
 export const ADVERTS_CREATED_FULFILLED = 'adverts/created/fulfilled';
 export const ADVERTS_CREATED_REJECTED = 'adverts/created/rejected';
 
+export const ADVERTS_DELETED_PENDING = 'adverts/deleted/pending';
+export const ADVERTS_DELETED_FULFILLED = 'adverts/deleted/fulfilled';
+export const ADVERTS_DELETED_REJECTED = 'adverts/deleted/rejected';
+
 export const TAGS_LOADED_PENDING = 'tags/loaded/pending';
 export const TAGS_LOADED_FULFILLED = 'tags/loaded/fulfilled';
 export const TAGS_LOADED_REJECTED = 'tags/loaded/rejected';

@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../context";
+import { useSelector } from "react-redux";
+import { getIsLogged } from "../../../store/selectors";
 
 function RequireAuth({ children }) {
   const location = useLocation();
-  const { isLogged } = useAuth();
+  const isLogged = useSelector(getIsLogged);
 
   return isLogged ? (
     children

@@ -1,21 +1,19 @@
 import { useState } from "react";
 import Button from "../../components/shared/Button";
-import { login } from "./service";
-import { useAuth } from "./context";
 import FormField from "../../components/shared/FormField";
 import "./LoginPage.css";
-import storage from "../../utils/storage";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authLogin, uiResetError } from "../../store/actions";
+import { getUi } from "../../store/selectors";
 
 export default function LoginPage() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { onLogin } = useAuth();
+  const dispatch = useDispatch();
+  const { pending: isFetching, error } = useSelector(getUi);
+
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
   });
-  const [error, setError] = useState(null);
 
   const [isChecked, setIsChecked] = useState(true);
 
@@ -30,22 +28,12 @@ export default function LoginPage() {
     setIsChecked((currentIsChecked) => !currentIsChecked);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    try {
-      await login(formValues);
-      onLogin();
-      if (!isChecked) {
-        storage.remove("auth");
-      }
-      const to = location.state?.from || "/";
-      navigate(to, { replace: true });
-    } catch (error) {
-      setError(error);
-    }
+    dispatch(authLogin(formValues, isChecked));
   };
 
-  const resetError = () => setError(null);
+  const resetError = () => dispatch(uiResetError());
 
   const { email, password } = formValues;
   const buttonDisabled = !email || !password;

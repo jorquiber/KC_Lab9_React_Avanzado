@@ -1,10 +1,12 @@
-import { getAdverts, getAdvertTags } from "./service";
 import { useEffect, useState } from "react";
 import Advert from "./components/Advert";
 import Layout from "../../components/layout/Layout";
 import { Link } from "react-router-dom";
 import Button from "../../components/shared/Button";
 import FormField from "../../components/shared/FormField";
+import { useDispatch, useSelector } from "react-redux";
+import { loadAdverts, loadTags } from "../../store/actions";
+import { getAdverts, getTags } from "../../store/selectors";
 
 const EmptyList = () => (
   <div>
@@ -16,25 +18,16 @@ const EmptyList = () => (
 );
 
 function AdvertsPage() {
-  const [adverts, setAdverts] = useState([]);
+  const dispatch = useDispatch();
+  const adverts = useSelector(getAdverts);
+  const tags = useSelector(getTags);
   const [nameFilter, setNameFilter] = useState("");
-  const [tags, setTags] = useState([]);
   const [tagsFilter, setTagsFilter] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const advertsData = await getAdverts();
-        setAdverts(advertsData);
-        const advertsTags = await getAdvertTags();
-        setTags(advertsTags);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    dispatch(loadAdverts());
+    dispatch(loadTags());
+  }, [dispatch]);
 
   const handleNameFilterChange = (event) => {
     setNameFilter(event.target.value);
@@ -69,7 +62,7 @@ function AdvertsPage() {
         </div>
         <div>
           <p>Filter by tags</p>
-          {tags.length > 0 ? (
+          {tags.length > 0 && (
             <div className="tags-wrapper">
               {tags.map((tag) => (
                 <FormField
@@ -82,7 +75,7 @@ function AdvertsPage() {
                 />
               ))}
             </div>
-          ) : null}
+          )}
         </div>
       </div>
 
